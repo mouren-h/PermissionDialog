@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* 移除手机端点击高亮 */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -23,8 +23,7 @@ body {
     color: var(--text-main);
     background-color: var(--bg-color);
     line-height: 1.6;
-    /* 彻底禁止横向溢出，保证手机端浏览体验 */
-    overflow-x: hidden; 
+    overflow-x: hidden; /* 防止横向滚动条撑破屏幕 */
 }
 
 a {
@@ -86,7 +85,7 @@ a {
     transition: 0.3s;
 }
 
-.desktop-text { display: none; } /* 手机端隐藏文字，只留图标 */
+.desktop-text { display: none; }
 
 /* 主视觉区 */
 .hero {
@@ -121,7 +120,6 @@ a {
     border-radius: 50%;
 }
 
-/* 标题使用 clamp 实现手机端自适应缩放 */
 .hero h1 {
     font-size: clamp(28px, 8vw, 56px);
     line-height: 1.2;
@@ -195,7 +193,7 @@ a {
     color: var(--text-muted);
 }
 
-/* 卡片网格 (手机单列) */
+/* 卡片网格 */
 .grid-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -218,29 +216,34 @@ a {
 .card h3 { font-size: 18px; margin-bottom: 8px; }
 .card p { font-size: 14px; color: var(--text-muted); }
 
-/* 预览区 (手机端横向滑动) */
+/* ---------------- 预览区图片完美自适应 ---------------- */
 .preview-scroll-container {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
+    gap: 16px;
     padding: 10px 16px 30px;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* 丝滑滚动 */
-    /* 隐藏滚动条 */
+    -webkit-overflow-scrolling: touch; 
     scrollbar-width: none; 
 }
 .preview-scroll-container::-webkit-scrollbar { display: none; }
 
 .preview-img-wrapper {
-    flex: 0 0 85%; /* 占据屏幕85%宽度，露出下一张图边缘提示可滑动 */
+    /* 手机端：图片容器占据屏幕宽度的 85% */
+    flex: 0 0 85%; 
+    /* 电脑端：最大宽度 320px */
+    max-width: 320px; 
     scroll-snap-align: center;
     text-align: center;
 }
 
 .preview-img-wrapper img {
-    width: 100%;
-    max-width: 320px; /* 防止图片在平板上过大 */
-    height: auto;
+    /* 核心：宽度占满容器，高度按原图比例自动缩放 */
+    width: 100%; 
+    height: auto; 
+    /* 核心：保证图片不被拉伸变形 */
+    object-fit: contain; 
+    display: block;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border: 4px solid #f0f0f0;
@@ -252,6 +255,7 @@ a {
     font-weight: 600;
     color: var(--text-muted);
 }
+/* -------------------------------------------------------- */
 
 /* 代码块区 */
 .code-container {
@@ -277,7 +281,7 @@ a {
     background: rgba(255,255,255,0.1);
     border: none;
     color: white;
-    padding: 8px; /* 增大手机点击热区 */
+    padding: 8px; 
     border-radius: 6px;
     font-size: 16px;
     display: flex;
@@ -289,7 +293,7 @@ a {
 
 pre {
     padding: 16px;
-    overflow-x: auto; /* 代码过长允许横向滑动 */
+    overflow-x: auto; /* 代码过长仅在此内部横向滑动 */
     color: #d4d4d4;
     font-family: 'Fira Code', 'Courier New', monospace;
     font-size: 13px;
@@ -297,7 +301,6 @@ pre {
     -webkit-overflow-scrolling: touch;
 }
 
-/* 页脚 */
 footer {
     border-top: 1px solid var(--border-color);
     padding: 30px 16px;
@@ -326,8 +329,7 @@ footer {
         flex-wrap: wrap;
     }
     .preview-img-wrapper {
-        flex: 0 1 auto;
-        width: 300px;
+        flex: 1; /* 电脑端平分宽度 */
     }
 
     .code-container {
