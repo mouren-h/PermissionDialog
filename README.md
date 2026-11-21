@@ -48,7 +48,7 @@
 
 | 权限未开启 | 权限已开启 |
 | :---: | :---: |
-| ![未开启](docs/preview-dialog.gif) | ![已开启](docs/preview-granted.gif) |
+| ![未开启](docs/1.png) | ![已开启](docs/2.png) |
 
 > 💡 建议在仓库中新建 `docs` 文件夹，放入你实际运行的截图或 GIF，并替换上方链接。
 
