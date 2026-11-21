@@ -6,6 +6,7 @@
 
 自动检测「所有文件访问权限」（MANAGE_EXTERNAL_STORAGE），Material Design 3 风格弹窗，实时刷新权限状态，一行代码完成权限引导。
 
+[![JitPack](https://jitpack.io/v/mouren-h/PermissionDialog.svg)](https://jitpack.io/#mouren-h/PermissionDialog)
 [![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
 [![Min SDK](https://img.shields.io/badge/minSdk-21-blue)](https://developer.android.com)
 [![Language](https://img.shields.io/badge/Language-Java-orange?logo=openjdk&logoColor=white)](https://www.java.com)
@@ -57,17 +58,32 @@
 
 ## 📦 集成方式
 
-### 方式一：直接复制文件
+### 1. 添加 JitPack 仓库
 
-将 `PermissionDialog.java` 复制到你的 Android 项目中，建议包名为 `com.yxbb`（或自行修改 `package` 声明与调用处）。
+在项目根目录的 `settings.gradle`（或 `settings.gradle.kts`）中添加 JitPack：
 
-### 方式二：Git Clone
-
-```bash
-git clone https://github.com/mouren-h/PermissionDialog.git
+```gradle
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' } // 添加这一行
+    }
+}
 ```
 
-> 项目基于 Java 编写，不依赖 Kotlin 或 AndroidX 之外的任何第三方库。
+### 2. 添加依赖
+
+在模块（通常是 `app`）的 `build.gradle` 中添加：
+
+```gradle
+dependencies {
+    implementation 'com.github.mouren-h:PermissionDialog:1.0'
+}
+```
+
+> 💡 **版本更新说明**：
+> 请根据 GitHub 的 [Releases](https://github.com/mouren-h/PermissionDialog/releases) 页面，自行替换版本号（如 `1.0`、`2.0` 等）。若拉取不到最新代码，请尝试点击 Android Studio 右上角的 **Sync Project with Gradle Files**。
 
 ---
 
@@ -78,6 +94,9 @@ git clone https://github.com/mouren-h/PermissionDialog.git
 如果你需要在权限检测完成后拿到结果：
 
 ```java
+import mr.x.permissiondialog.PermissionDialog; // 引入包名
+
+// 设置回调
 PermissionDialog.Async(new PermissionDialog.Cqd() {
     @Override
     public void djk(String result, String pd) {
@@ -111,7 +130,7 @@ PermissionDialog.qdjc(this);
 @Override
 protected void onResume() {
     super.onResume();
-    PermissionDialog.jckq(this);
+    PermissionDialog.jckq(this); // 刷新弹窗状态
 }
 ```
 
@@ -120,6 +139,8 @@ protected void onResume() {
 ---
 
 ## 📚 API 说明
+
+*(包路径：`mr.x.permissiondialog.PermissionDialog`)*
 
 ### 公开方法
 
@@ -169,7 +190,7 @@ public interface Cqd {
 | 目标 SDK | API 34+ |
 | 语言 | Java |
 | UI 风格 | Material Design 3 |
-| 依赖 | 仅 Android 官方 SDK |
+| 包名 | `mr.x.permissiondialog` |
 
 ---
 
