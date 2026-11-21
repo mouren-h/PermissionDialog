@@ -23,7 +23,7 @@ body {
     color: var(--text-main);
     background-color: var(--bg-color);
     line-height: 1.6;
-    overflow-x: hidden; /* 防止横向滚动条撑破屏幕 */
+    overflow-x: hidden; 
 }
 
 a {
@@ -172,9 +172,14 @@ a {
     margin: 0 auto;
 }
 
-.bg-light {
-    background: var(--bg-light);
+/* 为了在没有预览图的情况下，特性区和代码区层次分明 */
+#features {
+    background-color: var(--bg-light);
     max-width: 100%;
+}
+
+#integration {
+    background-color: var(--bg-color);
 }
 
 .section-header {
@@ -198,6 +203,8 @@ a {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .card {
@@ -215,47 +222,6 @@ a {
 
 .card h3 { font-size: 18px; margin-bottom: 8px; }
 .card p { font-size: 14px; color: var(--text-muted); }
-
-/* ---------------- 预览区图片完美自适应 ---------------- */
-.preview-scroll-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 16px;
-    padding: 10px 16px 30px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; 
-    scrollbar-width: none; 
-}
-.preview-scroll-container::-webkit-scrollbar { display: none; }
-
-.preview-img-wrapper {
-    /* 手机端：图片容器占据屏幕宽度的 85% */
-    flex: 0 0 85%; 
-    /* 电脑端：最大宽度 320px */
-    max-width: 320px; 
-    scroll-snap-align: center;
-    text-align: center;
-}
-
-.preview-img-wrapper img {
-    /* 核心：宽度占满容器，高度按原图比例自动缩放 */
-    width: 100%; 
-    height: auto; 
-    /* 核心：保证图片不被拉伸变形 */
-    object-fit: contain; 
-    display: block;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 4px solid #f0f0f0;
-}
-
-.preview-img-wrapper p {
-    margin-top: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-/* -------------------------------------------------------- */
 
 /* 代码块区 */
 .code-container {
@@ -287,13 +253,15 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .copy-btn:active { background: rgba(255,255,255,0.3); }
 
 pre {
     padding: 16px;
-    overflow-x: auto; /* 代码过长仅在此内部横向滑动 */
+    overflow-x: auto;
     color: #d4d4d4;
     font-family: 'Fira Code', 'Courier New', monospace;
     font-size: 13px;
@@ -301,6 +269,7 @@ pre {
     -webkit-overflow-scrolling: touch;
 }
 
+/* 页脚 */
 footer {
     border-top: 1px solid var(--border-color);
     padding: 30px 16px;
@@ -321,15 +290,6 @@ footer {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
-    }
-    
-    .preview-scroll-container {
-        justify-content: center;
-        overflow-x: visible;
-        flex-wrap: wrap;
-    }
-    .preview-img-wrapper {
-        flex: 1; /* 电脑端平分宽度 */
     }
 
     .code-container {
