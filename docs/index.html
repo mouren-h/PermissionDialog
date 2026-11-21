@@ -2,20 +2,20 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PermissionDialog - 轻量级 Android 权限申请弹窗</title>
-    <meta name="description" content="轻量、零依赖的 Android 权限申请弹窗组件，Material Design 3 风格，实时刷新权限状态。">
-    <!-- 引入字体和图标 -->
+    <!-- 针对移动端优化视口，禁止初始缩放，防止字体过小 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PermissionDialog - 轻量级 Android 权限弹窗</title>
+    <meta name="description" content="轻量、零依赖的 Android 权限申请弹窗组件，Material Design 3 风格。">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 顶部导航 -->
+    <!-- 顶部导航 (针对手机端精简) -->
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">
@@ -23,11 +23,8 @@
                 <span>PermissionDialog</span>
             </div>
             <div class="nav-links">
-                <a href="#features">特性</a>
-                <a href="#preview">预览</a>
-                <a href="#integration">集成</a>
                 <a href="https://github.com/mouren-h/PermissionDialog" target="_blank" class="github-btn">
-                    <i class="ph ph-github-logo"></i> GitHub
+                    <i class="ph ph-github-logo"></i> <span class="desktop-text">GitHub</span>
                 </a>
             </div>
         </div>
@@ -41,11 +38,11 @@
                 v1.0 已发布
             </div>
             <h1>打造极致优雅的<br><span class="text-gradient">Android 权限弹窗</span></h1>
-            <p>轻量、零依赖。自动检测「所有文件访问权限」，Material Design 3 风格，实时刷新权限状态。只需一行代码，完成完美权限引导。</p>
+            <p>轻量、零依赖。自动检测「所有文件访问权限」，Material Design 3 风格。只需一行代码，完成完美权限引导。</p>
             
             <div class="action-buttons">
                 <a href="#integration" class="btn btn-primary">快速接入</a>
-                <a href="https://jitpack.io/#mouren-h/PermissionDialog" target="_blank">
+                <a href="https://jitpack.io/#mouren-h/PermissionDialog" target="_blank" class="jitpack-link">
                     <img src="https://jitpack.io/v/mouren-h/PermissionDialog.svg" alt="JitPack" class="jitpack-badge">
                 </a>
             </div>
@@ -55,8 +52,8 @@
     <!-- 核心特性区 -->
     <section id="features" class="section">
         <div class="section-header">
-            <h2>为什么选择 PermissionDialog？</h2>
-            <p>专为 Android 开发者打造的现代化权限解决方案</p>
+            <h2>为什么选择它？</h2>
+            <p>专为 Android 开发者打造的现代化解决方案</p>
         </div>
         <div class="grid-container">
             <div class="card">
@@ -67,28 +64,28 @@
             <div class="card">
                 <i class="ph ph-magic-wand text-primary card-icon"></i>
                 <h3>一行调用</h3>
-                <p>只需 <code>PermissionDialog.qdjc(this)</code>，即可完成从检测到弹窗的全流程。</p>
+                <p>只需 <code>qdjc(this)</code>，即可完成从检测到弹窗的全流程。</p>
             </div>
             <div class="card">
                 <i class="ph ph-arrows-clockwise text-primary card-icon"></i>
                 <h3>实时刷新</h3>
-                <p>弹窗展示期间自动高频检测状态，用户开启后返回应用即刻无缝同步。</p>
+                <p>弹窗展示期间自动高频检测状态，用户开启后返回即刻同步。</p>
             </div>
             <div class="card">
                 <i class="ph ph-paint-brush text-primary card-icon"></i>
                 <h3>MD3 风格</h3>
-                <p>自动适配 Material You 圆角与主色调，自适应屏宽，拒绝低端感。</p>
+                <p>自适应屏宽与圆角，拒绝低端感，支持大字号不溢出。</p>
             </div>
         </div>
     </section>
 
-    <!-- 效果预览区 -->
+    <!-- 效果预览区 (手机端可横向滑动) -->
     <section id="preview" class="section bg-light">
         <div class="section-header">
             <h2>优雅的视觉体验</h2>
-            <p>完美适配深色浅色模式，大字号下依然保持布局不溢出</p>
+            <p>完美适配各种屏幕尺寸与深色模式</p>
         </div>
-        <div class="preview-container">
+        <div class="preview-scroll-container">
             <div class="preview-img-wrapper">
                 <img src="1.png" alt="权限未开启" loading="lazy">
                 <p>权限未开启</p>
@@ -109,8 +106,8 @@
         
         <div class="code-container">
             <div class="code-header">
-                <span>Step 1: 添加依赖 (settings.gradle)</span>
-                <button class="copy-btn" data-target="code1"><i class="ph ph-copy"></i> 复制</button>
+                <span>Step 1: settings.gradle</span>
+                <button class="copy-btn" data-target="code1"><i class="ph ph-copy"></i></button>
             </div>
             <pre><code id="code1">dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -123,8 +120,8 @@
 
         <div class="code-container">
             <div class="code-header">
-                <span>Step 2: 引入组件 (build.gradle)</span>
-                <button class="copy-btn" data-target="code2"><i class="ph ph-copy"></i> 复制</button>
+                <span>Step 2: build.gradle</span>
+                <button class="copy-btn" data-target="code2"><i class="ph ph-copy"></i></button>
             </div>
             <pre><code id="code2">dependencies {
     implementation 'com.github.mouren-h:PermissionDialog:1.0'
@@ -133,12 +130,12 @@
 
         <div class="code-container">
             <div class="code-header">
-                <span>Step 3: 在 Activity 中调用</span>
-                <button class="copy-btn" data-target="code3"><i class="ph ph-copy"></i> 复制</button>
+                <span>Step 3: Activity 中调用</span>
+                <button class="copy-btn" data-target="code3"><i class="ph ph-copy"></i></button>
             </div>
             <pre><code id="code3">import mr.x.permissiondialog.PermissionDialog;
 
-// 1. 设置回调 (可选)
+// 1. 设置回调
 PermissionDialog.Async(new PermissionDialog.Cqd() {
     @Override
     public void djk(String result, String pd) {
@@ -148,10 +145,10 @@ PermissionDialog.Async(new PermissionDialog.Cqd() {
     }
 });
 
-// 2. 启动检测并弹窗
+// 2. 启动检测
 PermissionDialog.qdjc(this);
 
-// 3. 从设置页返回时刷新
+// 3. 返回时刷新
 @Override
 protected void onResume() {
     super.onResume();
@@ -168,7 +165,6 @@ protected void onResume() {
         </div>
     </footer>
 
-    <!-- 引入外部 JS -->
     <script src="main.js"></script>
 </body>
 </html>
