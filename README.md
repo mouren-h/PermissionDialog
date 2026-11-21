@@ -48,7 +48,7 @@
 
 | 权限未开启 | 权限已开启 |
 | :---: | :---: |
-| ![未开启](docs/1.png) | ![已开启](docs/2.png) |
+| <img src="https://raw.githubusercontent.com/mouren-h/PermissionDialog/main/docs/1.png" width="300"/> | <img src="https://raw.githubusercontent.com/mouren-h/PermissionDialog/main/docs/2.png" width="300"/> |
 
 </div>
 
