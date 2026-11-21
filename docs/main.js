@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 平滑滚动
+    // 平滑滚动 (针对锚点链接)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const headerOffset = 70; // 导航栏高度
+                const headerOffset = 60;
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 代码一键复制功能
+    // 代码一键复制功能 (适配移动端触控反馈)
     const copyButtons = document.querySelectorAll('.copy-btn');
     
     copyButtons.forEach(button => {
@@ -32,42 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     await navigator.clipboard.writeText(textToCopy);
                     
                     // 交互反馈
-                    const originalText = button.innerHTML;
-                    button.innerHTML = '<i class="ph ph-check"></i> 已复制!';
-                    button.style.color = '#4CAF50';
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="ph ph-check" style="color: #4CAF50;"></i>';
                     
                     setTimeout(() => {
-                        button.innerHTML = originalText;
-                        button.style.color = 'white';
+                        button.innerHTML = originalHTML;
                     }, 2000);
                 } catch (err) {
                     console.error('复制失败:', err);
-                    button.innerHTML = '复制失败';
+                    // 兼容非 HTTPS 环境的降级方案
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        button.innerHTML = '<i class="ph ph-check" style="color: #4CAF50;"></i>';
+                        setTimeout(() => { button.innerHTML = originalHTML; }, 2000);
+                    } catch (e) {
+                        button.innerHTML = '失败';
+                    }
+                    document.body.removeChild(textArea);
                 }
             }
         });
-    });
-
-    // 滚动出现动画 (Intersection Observer)
-    const observerOptions = {
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // 给卡片和区块加初始透明度并观察
-    document.querySelectorAll('.card, .code-container, .preview-img-wrapper').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
     });
 });
